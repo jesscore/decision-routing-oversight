@@ -100,6 +100,31 @@ The decision taxonomy formalizes a specific AI failure mode — reasoning-mode m
 
 ---
 
+## Current Status
+
+Working prototype. Both tools run, classify correctly, and the meta-observer catches misrouting patterns on real decisions.
+
+What hasn't been done yet: systematic empirical validation. We don't have a labeled dataset of real decisions with ground-truth type assignments, so we can't report classifier accuracy or meta-observer precision at scale. The demonstrated example (relational-masked-as-evaluative, 78% → 41%) is real and manually verified — it's a single case, not a benchmark.
+
+This is the honest starting point. The taxonomy is grounded in a preregistered research program on how AI systems misroute reasoning, not invented from scratch. But the tools need empirical evaluation before they can make calibrated accuracy claims.
+
+---
+
+## What Funding Enables
+
+Three things, in order of priority:
+
+**1. Empirical validation.**
+Build a labeled dataset of real decisions across domains — research, organizational, clinical, policy. Measure classifier accuracy by decision type. Measure meta-observer catch rate: when a misrouting pattern is present, does it fire? When it isn't, does it stay quiet? This turns the prototype into an evaluated tool with known failure modes.
+
+**2. Taxonomy extension.**
+The current 8-type taxonomy was derived from AI-research decisions. It needs stress-testing against other high-stakes domains — medical triage, institutional risk, team coordination. Some types may split; others may merge. The goal is a taxonomy that holds across contexts, not just the one it was built in.
+
+**3. Integration with pre-hoc oversight research.**
+The parent research program shows that structured interaction context produces measurable, architecturally invariant changes in model geometry (Cohen's d=2.002, Mantel ρ=0.943). The open question: does geometric signal predict decision-type misrouting? If high-entropy activation patterns correlate with misrouted classification, the meta-observer could eventually flag not just logical misrouting but geometric instability before the output arrives. That's the longer-horizon connection this work is positioned to test.
+
+---
+
 ## License
 
 MIT — Mirrorfield Lab, 2026
