@@ -63,6 +63,55 @@ The classifier answered the question as asked. The Meta-Observer caught that the
 
 ---
 
+## Additional Examples
+
+**Classifier correctly routes a strategic decision that looks operational**
+
+```
+Decision: "Should we add more data collection phases before submitting to NeurIPS?"
+
+First pass:    Type 6 (Risk) — 82% confidence
+               Rationale: Evidence-sufficiency-vs-deadline is a risk decision, not a scheduling problem.
+               First question: What specific reviewer objection would additional data address,
+               and is that objection fatal under current evidence?
+
+               Misrouting risk: Treated as Operational (scheduling more runs) without asking
+               whether additional data would change the claims or reviewers' verdict.
+               Missing the asymmetric risk — a cycle delay means waiting a full year.
+```
+
+**Classifier catches a decision most teams treat as logistical**
+
+```
+Decision: "Should we submit this paper to NeurIPS or ICLR?"
+
+First pass:    Type 7 (Relational-Strategic) — 82% confidence
+               Rationale: Venue selection encodes research identity, targets specific reviewer
+               communities, signals career positioning, and affects citation networks.
+               First question: Which reviewer community is most likely to correctly evaluate
+               and champion this paper's contribution?
+
+               Misrouting risk: Treated as Operational (pick the nearest deadline) — missing
+               community-fit, reviewer culture, and reputation implications entirely.
+```
+
+**Meta-Observer confirms a stable classification (no flag)**
+
+```
+Decision: "How should we structure the oversight architecture for a high-stakes AI deployment?"
+
+First pass:    Type 5 (Architectural) — 92% confidence
+               Rationale: This shapes the container within which all future oversight and
+               accountability decisions will be made.
+
+Meta-Observer: ✓ Classification stable. No invisible failure patterns detected.
+               Adjusted confidence: 81%
+```
+
+When the classification is already correct, the Meta-Observer confirms it and adjusts confidence to reflect its own epistemic uncertainty — it doesn't manufacture flags.
+
+---
+
 ## Installation
 
 ```bash
@@ -90,13 +139,17 @@ python meta_observer.py "How should we approach this potential collaborator?"
 
 ## Research Background
 
-These tools implement the hierarchical oversight architecture grounded in a preregistered empirical research program on how structured human-AI interaction shapes model representation geometry.
+These tools are the applied layer of a preregistered empirical research program on how structured human-AI interaction shapes model representation geometry (OSF: [osf.io/fzjh6](https://osf.io/fzjh6)).
 
-The decision taxonomy formalizes a specific AI failure mode — reasoning-mode misclassification — currently informal and ad-hoc in both AI labs and organizations. The hierarchical Meta-Observer layer addresses failures before downstream propagation rather than catching them in completed outputs, shifting the oversight posture from post-hoc evaluation to pre-hoc detection.
+**The mechanistic connection.** The empirical program shows that coherent interaction context produces consistent, architecturally invariant changes in model activation space (Cohen's d=2.002, Mantel ρ=0.943 across two architectures). This means context doesn't just frame a conversation — it shapes which reasoning modes are geometrically accessible. Decision-type misrouting is the output-level manifestation of that structure: the model engages the reasoning mode most proximal in its representation space, which may not be the mode appropriate for the decision at hand. The decision routing tools operationalize pre-hoc detection of this failure at the output level. The geometry research is the mechanistic foundation for why it occurs.
+
+**The oversight posture this enables.** Existing evaluation approaches catch misrouted reasoning after the fact — in completed outputs, in downstream consequences. This tool catches it before. The Meta-Observer doesn't evaluate outputs; it checks whether the right question was even being answered.
+
+The decision taxonomy formalizes a failure mode that is currently informal and ad-hoc in both AI labs and organizations. Making it explicit and detectable is the first step toward systematic pre-hoc oversight.
 
 - **Preregistered research program:** [osf.io/fzjh6](https://osf.io/fzjh6) — individual phase preregistrations filed before each data collection cycle; null results reported verbatim
 - **NeurIPS 2026:** under review — cross-architecture geometric consistency (Mantel ρ=0.943, preregistered)
-- **ICLR 2026:** submitted — carrier-mediated symbolic token geometry (Cohen's d=2.002, preregistered)
+- **ICLR 2026:** submitted — mechanistic account of how interaction context shapes representational structure across model families (Cohen's d=2.002, preregistered)
 
 ---
 
